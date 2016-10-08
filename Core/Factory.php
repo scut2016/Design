@@ -13,4 +13,16 @@ class Factory{
         Register::set('db1',$db);
         return $db;
     }
+    static function getStudent($id)
+    {
+        $key=$id;
+        $db=Register::get($id);
+        if(!$db)
+        {
+            $db=new Student($id);
+            Register::set($key,$db);
+        }
+          
+        return $db;
+    }
 }

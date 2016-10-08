@@ -103,3 +103,46 @@ echo "<br>";
 //echo  decbin(18);//转换为2进制
 //echo  decoct(18);//转化为8进制
 echo dechex(32);//转化为16进制
+//传统的改进方法 如果不使用$user传参数，则test方法将不会做任何的改变
+//class Page{
+//    function index()
+//    {
+//        $user=\Core\Factory::getStudent(1);
+//        $user->stu_id='201655';
+//
+//        $this->test($user);
+//    }
+////update student set stu_id='201655',stu_name='令狐冲',class_id='01' where id='1'
+////update student set stu_id='201655',stu_name='苗人凤',class_id='01' where id='1'
+////析构完成
+//    function test($user)
+//    {
+////        $user=new \Core\Student(1);
+////        $user=\Core\Factory::getStudent(1);
+//        $user->stu_name='令狐冲';
+//
+//    }
+//}
+class Page{
+    function index()
+    {
+        $user=\Core\Factory::getStudent(1);
+        $user->stu_id='201688';
+
+        $this->test();
+    }
+//update student set stu_id='201655',stu_name='令狐冲',class_id='01' where id='1'
+//update student set stu_id='201655',stu_name='苗人凤',class_id='01' where id='1'
+//析构完成
+    function test()
+    {
+        $user=new \Core\Student(1);
+        $user=\Core\Factory::getStudent(1);
+        $user->stu_name='张无忌';
+    }
+}
+//读取代码
+//var_dump($user->id,$user->stu_id,$user->stu_name,$user->class_id);
+//设置
+$p=new Page();
+$p->index();
