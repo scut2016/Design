@@ -80,3 +80,26 @@ else
 }
 $c->setStrategy($strategy);
 $c->index();
+$stack=new SplStack();//栈
+//10 进制转化为2进制
+$a=32;
+$bit=16;
+while($a>$bit)
+{
+    $temp=$a%$bit;
+    $stack->push($temp);
+    $a/=$bit;
+    if($a<$bit)
+        $stack->push(floor($a));
+}
+while($stack)
+{
+   if($stack->isEmpty())
+       break;
+   echo $stack->pop();
+
+}
+echo "<br>";
+//echo  decbin(18);//转换为2进制
+//echo  decoct(18);//转化为8进制
+echo dechex(32);//转化为16进制
