@@ -22,7 +22,6 @@ class Factory{
             $db=new Student($id);
             Register::set($key,$db);
         }
-          
         return $db;
     }
 }

@@ -146,3 +146,26 @@ class Page{
 //设置
 $p=new Page();
 $p->index();
+
+class Event extends \Core\EventGenerator{
+    function trigger()
+    {
+        $this->notify();
+    }
+}
+class Observer1 implements \Core\IObserver{
+    function update($event = null)
+    {
+        echo "<br>observer 1  do something<br>";
+    }
+}
+class Observer2 implements \Core\IObserver{
+    function update($event = null)
+    {
+        echo "<br>observer 2  do something<br>";
+    }
+}
+$event=new Event();
+$event->addObserver(new Observer1());
+$event->addObserver(new Observer2());
+$event->trigger();
