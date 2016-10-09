@@ -13,20 +13,17 @@ final class Database{
     private $host= "127.0.0.1";
     private $username = "root";
     private $pwd = "root";
-    private $dbName = "test";
+    private $dbName = "train";
     private $charset = "utf8";
     private static $db=null;
-
+    private $conn;
     //第一步 封锁new的操作，将构造函数私有化后就无法在new对象了
     private function __construct()
     {
-        $db = new \mysqli($this->host, $this->username, $this->pwd,$this->dbName); // 连接数据库
-        $db->set_charset($this->charset);
-        if ($db->connect_error) {
-            die ('连接失败'.$db->connect_error);
-        } else {
-            echo "连接成功<br>";
-            return $db;
+        $this->conn = new \mysqli($this->host, $this->username, $this->pwd,$this->dbName); // 连接数据库
+        $this->conn->set_charset($this->charset);
+        if ($this->conn->connect_error) {
+            die ('连接失败'.$this->conn->connect_error);
         }
     }
     //第二步开放一个外部访问的接口
@@ -40,9 +37,14 @@ final class Database{
     {
 
     }
-    public function __destruct()
-    {
 
-        echo "+++单例被析构+++++<br>";
+    public function query($sql)
+    {
+        return $this->conn->query($sql);
     }
+//    public function __destruct()
+//    {
+//
+//        echo "+++单例被析构+++++<br>";
+//    }
 }

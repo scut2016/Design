@@ -169,3 +169,36 @@ $event=new Event();
 $event->addObserver(new Observer1());
 $event->addObserver(new Observer2());
 $event->trigger();
+//装饰者类的演示
+
+$coffee=new \Decorator\Coffee();//生成一个咖啡类
+$milkCoffee=new \Decorator\CondimentMilk($coffee);//咖啡中加牛奶
+echo "牛奶咖啡的价格:".$milkCoffee->Cost()."<br>";//牛奶咖啡的价格
+$sugarCoffee=new \Decorator\CondimentSugar($coffee);//加糖咖啡
+echo "加糖咖啡的价格:".$sugarCoffee->Cost()."<br>";//加糖咖啡的价格
+$butterCoffee=new \Decorator\CondimentButter($coffee);//黄油咖啡
+echo "黄油咖啡的价格:".$butterCoffee->Cost()."<br>";//黄油咖啡的价格
+
+//装饰者类和工厂模式以及注射器模式的配合使用
+$coffee=\Core\Factory::createCoffee('Milk');
+echo "牛奶咖啡的价格:".$coffee->Cost()."<br>";//牛奶咖啡的价格
+echo "牛奶咖啡的价格:".\Core\Register::get('MilkCoffee')->Cost()."<br>";//牛奶咖啡的价格
+$coffee=\Core\Factory::createCoffee('Butter');
+echo "黄油咖啡的价格:".$coffee->Cost()."<br>";//黄油咖啡的价格
+
+//改进后coffee类 可以加入多种调料
+$coffee=new \Decorator\Coffee();
+$milk=new \Decorator\Milk();
+$sugar=new \Decorator\Sugar();
+$coffee->addDecorator($milk);
+$coffee->addDecorator($sugar);
+echo $coffee->coffeeName().$coffee->total()."<br>";
+
+//迭代器模式
+$students=new \Core\AllStudent();
+echo "<pre>";
+foreach ($students as $student)
+{
+  print_r($student);
+}
+echo "</pre>";
